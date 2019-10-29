@@ -3,6 +3,9 @@
     package="com.example.jvicentillo.digitalguestbook">
     
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="True"/>
+
 
     <application
         android:allowBackup="true"
