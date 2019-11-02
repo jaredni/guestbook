@@ -7,13 +7,13 @@
     tools:context=".GreetingFormatActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srcCompat="@drawable/formatbg" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/photoButton"
         android:layout_width="263dp"
         android:layout_height="485dp"
         android:layout_alignParentStart="true"
@@ -30,4 +30,23 @@
         android:layout_marginBottom="164dp"
         android:onClick="clickPhoto"
         app:srcCompat="@drawable/camera" />
+
+    <ImageView
+        android:id="@+id/videoButton"
+        android:layout_width="361dp"
+        android:layout_height="451dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="259dp"
+        android:layout_marginLeft="259dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="660dp"
+        android:layout_marginRight="660dp"
+        android:layout_marginBottom="179dp"
+        android:onClick="clickVideo"
+        app:srcCompat="@drawable/videocam" />
 </RelativeLayout>

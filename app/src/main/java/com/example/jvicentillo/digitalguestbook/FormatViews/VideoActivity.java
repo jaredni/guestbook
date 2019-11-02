@@ -3,23 +3,26 @@ package com.example.jvicentillo.digitalguestbook.FormatViews;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.util.Log;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.example.jvicentillo.digitalguestbook.R;
 
-public class PhotoActivity extends AppCompatActivity {
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
-    public void getPhoto() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+public class VideoActivity extends AppCompatActivity {
+    static final int REQUEST_VIDEO_CAPTURE = 1;
+
+    public void getVideo() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE);
         }
     }
 
@@ -29,7 +32,7 @@ public class PhotoActivity extends AppCompatActivity {
 
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getPhoto();
+                getVideo();
             }
         }
     }
@@ -37,12 +40,12 @@ public class PhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_video);
 
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
         } else {
-            getPhoto();
+            getVideo();
         }
     }
 
@@ -51,10 +54,12 @@ public class PhotoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ImageView imageView = findViewById(R.id.realPhoto);
-            imageView.setImageBitmap(imageBitmap);
+            VideoView videoView= findViewById(R.id.videoGreeting);
+            videoView.setMediaController(new MediaController(this));
+            videoView.setVideoURI(data.getData());
+            videoView.requestFocus();
+            videoView.start();
+            Log.d("kekistan", String.valueOf(data.getData()));
         }
     }
 }
