@@ -23,6 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    public void getGreetingFormat() {
+        Intent intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
+
+        startActivity(intent);
+    }
+
     public void getPhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -44,24 +50,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        /*setContentView(R.layout.activity_main);
 
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
         } else {
             getPhoto();
-        }
+        }*/
+
+        Intent intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
+
+        startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+        /*if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView imageView = (ImageView) findViewById(R.id.realPhoto);
             imageView.setImageBitmap(imageBitmap);
-        }
+        }*/
+
+        getGreetingFormat();
     }
 }
