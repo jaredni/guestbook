@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.jvicentillo.digitalguestbook.FormatViews.PhotoActivity;
+import com.example.jvicentillo.digitalguestbook.FormatViews.VideoActivity;
 
 public class GreetingFormatActivity extends AppCompatActivity {
 
@@ -16,8 +17,14 @@ public class GreetingFormatActivity extends AppCompatActivity {
     }
 
     public void clickPhoto(View view) {
-        Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
+        Intent photo_intent = new Intent(getApplicationContext(), PhotoActivity.class);
 
-        startActivity(intent);
+        startActivity(photo_intent);
+    }
+
+    public void clickVideo(View view) {
+        Intent video_intent = new Intent(getApplicationContext(), VideoActivity.class);
+
+        startActivity(video_intent);
     }
 }
