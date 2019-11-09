@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 public class DrawableImageView extends AppCompatImageView {
     Paint paint;
     Path path;
+    Canvas canvas;
 
     public DrawableImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -54,5 +57,12 @@ public class DrawableImageView extends AppCompatImageView {
         }
         invalidate();
         return true;
+    }
+
+
+    public void removeLmao() {
+        Paint clear = new Paint();
+        clear.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        canvas.drawRect(0, 0, 0, 0, clear);
     }
 }
