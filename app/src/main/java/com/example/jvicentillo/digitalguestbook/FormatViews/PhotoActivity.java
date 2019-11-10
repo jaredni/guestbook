@@ -43,11 +43,11 @@ public class PhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-        /*if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
         } else {
             getPhoto();
-        }*/
+        }
     }
 
     @Override
@@ -64,6 +64,6 @@ public class PhotoActivity extends AppCompatActivity {
 
     public void clearDrawing(View view) {
         DrawableImageView div = findViewById(R.id.background);
-        div.removeLmao();
+        div.removeDrawing();
     }
 }

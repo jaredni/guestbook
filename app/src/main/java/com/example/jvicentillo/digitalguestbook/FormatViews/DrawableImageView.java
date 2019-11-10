@@ -60,9 +60,8 @@ public class DrawableImageView extends AppCompatImageView {
     }
 
 
-    public void removeLmao() {
-        Paint clear = new Paint();
-        clear.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        canvas.drawRect(0, 0, 0, 0, clear);
+    public void removeDrawing() {
+        path.reset();
+        invalidate();
     }
 }
