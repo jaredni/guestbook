@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    tools:context=".MainActivity">
+    tools:context=".FormatViews.PhotoActivity">
 
-    <ImageView
+    <com.example.jvicentillo.digitalguestbook.FormatViews.DrawableImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,6 +16,18 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         app:srcCompat="@drawable/photopage" />
+
+    <ImageView
+        android:id="@+id/realPhoto2"
+        android:layout_width="303dp"
+        android:layout_height="213dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="181dp"
+        android:layout_marginRight="181dp"
+        android:src="@color/colorAccent" />
 
     <ImageView
         android:id="@+id/realPhoto"
@@ -27,4 +39,18 @@
         android:layout_marginTop="41dp"
         android:layout_marginEnd="194dp"
         android:layout_marginRight="194dp" />
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="567dp"
+        android:layout_marginEnd="374dp"
+        android:layout_marginRight="374dp"
+        android:onClick="clearDrawing"
+        android:text="Clear" />
+
 </RelativeLayout>

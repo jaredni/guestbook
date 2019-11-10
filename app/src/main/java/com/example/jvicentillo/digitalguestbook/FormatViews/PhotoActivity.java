@@ -9,7 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.jvicentillo.digitalguestbook.R;
 
@@ -37,7 +41,7 @@ public class PhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_photo);
 
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
@@ -56,5 +60,10 @@ public class PhotoActivity extends AppCompatActivity {
             ImageView imageView = findViewById(R.id.realPhoto);
             imageView.setImageBitmap(imageBitmap);
         }
+    }
+
+    public void clearDrawing(View view) {
+        DrawableImageView div = findViewById(R.id.background);
+        div.removeDrawing();
     }
 }
