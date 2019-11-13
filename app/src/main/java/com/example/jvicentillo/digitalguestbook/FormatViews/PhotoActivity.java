@@ -89,8 +89,9 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     public void saveImage(View view) {
+        ViewGroup templateLayout = findViewById(R.id.templateLayout);
         String directory = createDirectory();
-        Bitmap bitmap = viewToBitmap(view);
+        Bitmap bitmap = viewToBitmap(templateLayout);
         try {
             FileOutputStream output = new FileOutputStream(directory + "/second.png");
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
@@ -115,10 +116,5 @@ public class PhotoActivity extends AppCompatActivity {
             Log.i("status", Environment.getExternalStorageDirectory().toString());
         }
         return "";
-    }
-
-    public void requestSaveImage(View view) {
-        ViewGroup lmao = findViewById(R.id.templateLayout);
-        saveImage(lmao);
     }
 }
