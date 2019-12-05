@@ -115,6 +115,6 @@ public class PhotoActivity extends AppCompatActivity {
         } else {
             Log.i("status", Environment.getExternalStorageDirectory().toString());
         }
-        return "";
+        return folder.toString();
     }
 }
