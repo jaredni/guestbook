@@ -104,7 +104,7 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     public String createDirectory() {
-        File folder = new File(getExternalCacheDir(), "NewDirectory");
+        File folder = new File(getExternalFilesDir(null), "NewDirectory");
 
         boolean success = true;
         if (!folder.exists()) {

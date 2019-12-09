@@ -3,24 +3,33 @@ package com.example.jvicentillo.digitalguestbook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.example.jvicentillo.digitalguestbook.FormatViews.PhotoActivity;
 import com.example.jvicentillo.digitalguestbook.FormatViews.VideoActivity;
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
-import com.github.hiteshsondhi88.libffmpeg.FFmpegExecuteResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
+
+import java.io.File;
 
 public class GreetingFormatActivity extends AppCompatActivity {
+
+    FFmpeg ffmpeg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_greeting_format);
+        loadFFMpegBinary();
     }
 
     public void clickPhoto(View view) {
         Intent photo_intent = new Intent(getApplicationContext(), PhotoActivity.class);
-
+    
         startActivity(photo_intent);
     }
 
@@ -30,46 +39,67 @@ public class GreetingFormatActivity extends AppCompatActivity {
         startActivity(video_intent);
     }
 
-    public static void convertToGif(String originVideoFilePath, String destinationGifFilePath,
-                                    int width, int height, FFmpegExecuteResponseHandler ffmpegExecuteResponseHandler) {
+    private void loadFFMpegBinary() {
+        try {
+            if (ffmpeg == null) {
+                ffmpeg = FFmpeg.getInstance(this);
+            }
+            ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
+                @Override
+                public void onFailure() {
 
+                }
+
+                @Override
+                public void onSuccess() {
+
+                }
+            });
+        } catch (FFmpegNotSupportedException e) {
+
+        } catch (Exception e) {
+
+        }
     }
 
-    private ExecuteBinaryResponseHandler executeBinaryResponseHandler() {
-        return new ExecuteBinaryResponseHandler() {
-            @Override
-            public void onStart() {}
+    private void execFFmpegBinary(final String[] command) {
+        try {
+            ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
+                @Override
+                public void onFailure(String s) {
+                    Log.i("REEEEE", "REEEEEEEEe");
+                }
 
-            @Override
-            public void onProgress(String message) {}
+                @Override
+                public void onSuccess(String s) {
+                    Log.i("status", "read");
+                }
 
-            @Override
-            public void onFailure(String message) {}
+                @Override
+                public void onProgress(String s) {
 
-            @Override
-            public void onSuccess(String message) {}
+                }
 
-            @Override
-            public void onFinish() {}
-        };
+                @Override
+                public void onStart() {
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        } catch (FFmpegCommandAlreadyRunningException e) {
+            // do nothing for now
+        }
     }
 
-    /*public void loadBinary(Context context) {
-        String[] cmd = new String[]{"-y", "-i", originVideoFilePath, "-s", width + "x" + height,
-                "-pix_fmt", "rgb24", "-preset", "ultrafast",
-                destinationGifFilePath};
-        try {
-            CustomFFmpeg.getInstance().execute(originVideoFilePath, cmd, ffmpegExecuteResponseHandler);
-        } catch (FFmpegCommandAlreadyRunningException e) {
-            e.printStackTrace();
-        }
-
-        FFmpeg ffmpeg = FFmpeg.getInstance(context);
-        try {
-            // to execute "ffmpeg -version" command you just need to pass "-version"
-            ffmpeg.execute(cmd, executeBinaryResponseHandler());
-        } catch (FFmpegCommandAlreadyRunningException e) {
-            // Handle if FFmpeg is already running
-        }
-    }*/
+    public void onClick(View view) {
+        File lmao = new File(getExternalFilesDir(null), "/NewDirectory/something.mp4");
+        String filePath = lmao.getAbsolutePath();
+        Log.i("AbsPAth", filePath);
+        String[] command = new String[]{"-i", filePath};
+        execFFmpegBinary(command);
+    }
 }

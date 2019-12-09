@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -31,7 +33,8 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private Uri getVideoUri() {
-        File file = new File(getExternalCacheDir().toString() + "/NewDirectory", "something.mp4");
+        File file = new File( getExternalFilesDir(null) + "/NewDirectory", "something.mp4");
+
         Uri imgUri = Uri.fromFile(file);
 
         return imgUri;
