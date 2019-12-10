@@ -47,59 +47,62 @@ public class GreetingFormatActivity extends AppCompatActivity {
             ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
                 @Override
                 public void onFailure() {
-
                 }
 
                 @Override
                 public void onSuccess() {
-
+                    Log.d("loaded correctly", "ffmpeg : correct Loaded");
                 }
             });
         } catch (FFmpegNotSupportedException e) {
-
+            Log.d("not loaded", "not loaded again");
         } catch (Exception e) {
-
+            Log.d("not loaded", "EXception no controlada : " + e);
         }
     }
 
     private void execFFmpegBinary(final String[] command) {
         try {
+            // to execute "ffmpeg -version" command you just need to pass "-version"
             ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
+
                 @Override
-                public void onFailure(String s) {
-                    Log.i("REEEEE", "REEEEEEEEe");
+                public void onStart() {}
+
+                @Override
+                public void onProgress(String message) {}
+
+                @Override
+                public void onFailure(String message) {
+                    Log.d("Error", message);
                 }
 
                 @Override
-                public void onSuccess(String s) {
-                    Log.i("status", "read");
-                }
-
-                @Override
-                public void onProgress(String s) {
-
-                }
-
-                @Override
-                public void onStart() {
-
+                public void onSuccess(String message) {
+                    Log.d("Success", message);
                 }
 
                 @Override
                 public void onFinish() {
-
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {
-            // do nothing for now
+            // Handle if FFmpeg is already running
         }
     }
 
     public void onClick(View view) {
         File lmao = new File(getExternalFilesDir(null), "/NewDirectory/something.mp4");
+        File picture = new File(getExternalFilesDir(null), "/NewDirectory/second.png");
+        File output = new File(getExternalFilesDir(null), "/NewDirectory/output.mp4");
         String filePath = lmao.getAbsolutePath();
-        Log.i("AbsPAth", filePath);
-        String[] command = new String[]{"-i", filePath};
+        String[] command = new String[]{
+                "-loop", "1", "-framerate", "24", "-t", "10", "-i", picture.getAbsolutePath(), "-i", filePath, "-f",
+                "lavfi", "-t", "0.1", "-i", "anullsrc=channel_layout=stereo:sample_rate=4410",
+                "-filter_complex", "[0]scale=432:432,setsar=1[im];[1]scale=432:432,setsar=1[vid];[im][vid]concat=n=2:v=1:a=0",
+                output.getAbsolutePath()
+
+        };
         execFFmpegBinary(command);
     }
 }
