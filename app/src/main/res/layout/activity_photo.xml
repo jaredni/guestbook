@@ -7,34 +7,6 @@
     android:layout_centerInParent="true"
     tools:context=".FormatViews.PhotoActivity">
 
-    <Button
-        android:id="@+id/clearButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="567dp"
-        android:layout_marginEnd="374dp"
-        android:layout_marginRight="374dp"
-        android:onClick="clearDrawing"
-        android:text="Clear" />
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="-691dp"
-        android:layout_marginLeft="-691dp"
-        android:layout_marginEnd="275dp"
-        android:layout_marginRight="275dp"
-        android:layout_marginBottom="189dp"
-        android:onClick="saveImage"
-        android:text="Save" />
-
     <RelativeLayout
         android:id="@+id/templateLayout"
         android:layout_width="match_parent"
@@ -51,26 +23,53 @@
 
         <ImageView
             android:id="@+id/realPhoto2"
-            android:layout_width="303dp"
-            android:layout_height="213dp"
+            android:layout_width="208dp"
+            android:layout_height="155dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="187dp"
-            android:layout_marginRight="187dp"
-            android:layout_marginBottom="414dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginRight="124dp"
+            android:layout_marginBottom="353dp"
             android:src="@color/colorAccent" />
 
         <ImageView
             android:id="@+id/realPhoto"
-            android:layout_width="271dp"
-            android:layout_height="185dp"
+            android:layout_width="250dp"
+            android:layout_height="178dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="201dp"
-            android:layout_marginRight="201dp"
-            android:layout_marginBottom="424dp" />
+            android:layout_marginEnd="88dp"
+            android:layout_marginRight="88dp"
+            android:layout_marginBottom="347dp" />
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="408dp"
+            android:layout_marginEnd="132dp"
+            android:layout_marginRight="132dp"
+            android:layout_marginBottom="258dp"
+            android:onClick="clearDrawing"
+            android:text="Clear" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="607dp"
+            android:layout_marginLeft="607dp"
+            android:layout_marginTop="237dp"
+            android:layout_marginEnd="265dp"
+            android:layout_marginRight="265dp"
+            android:layout_marginBottom="255dp"
+            android:onClick="saveImage"
+            android:text="Save" />
     </RelativeLayout>
 
 </RelativeLayout>

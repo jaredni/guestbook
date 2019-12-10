@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.jvicentillo.digitalguestbook.R;
 
@@ -93,28 +94,32 @@ public class PhotoActivity extends AppCompatActivity {
         String directory = createDirectory();
         Bitmap bitmap = viewToBitmap(templateLayout);
         try {
+            Log.i("saved", "image saved!");
             FileOutputStream output = new FileOutputStream(directory + "/second.png");
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
             output.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            Log.i("error", "error");
         } catch (IOException e) {
             e.printStackTrace();
+            Log.i("ioerror", "ioerror");
         }
     }
 
     public String createDirectory() {
-        File folder = new File(getExternalCacheDir(), "NewDirectory");
+        File folder = new File(getExternalFilesDir(null), "NewDirectory");
 
         boolean success = true;
         if (!folder.exists()) {
             success = folder.mkdirs();
         }
+        Toast.makeText(this, folder.toString(), Toast.LENGTH_LONG).show();
         if (success) {
             return folder.toString();
         } else {
             Log.i("status", Environment.getExternalStorageDirectory().toString());
         }
-        return "";
+        return folder.toString();
     }
 }
