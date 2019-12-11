@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.jvicentillo.digitalguestbook.EndSessionActivity;
 import com.example.jvicentillo.digitalguestbook.GreetingFormatActivity;
 import com.example.jvicentillo.digitalguestbook.R;
+import com.example.jvicentillo.digitalguestbook.Utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,6 +29,9 @@ import java.io.IOException;
 
 public class PhotoActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_NEW_FILE = 1;
+
+    Utilities util;
 
     public void getPhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -70,7 +74,6 @@ public class PhotoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -95,19 +98,17 @@ public class PhotoActivity extends AppCompatActivity {
         ViewGroup templateLayout = findViewById(R.id.templateLayout);
         String directory = createDirectory();
         Bitmap bitmap = viewToBitmap(templateLayout);
+        util = new Utilities();
         try {
-            Log.i("saved", "image saved!");
-            FileOutputStream output = new FileOutputStream(directory + "/second.png");
+            FileOutputStream output = new FileOutputStream(util.getFileUri(getApplicationContext(), REQUEST_NEW_FILE, 1).getPath());
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
             output.close();
             Intent end_session_intent = new Intent(getApplicationContext(), EndSessionActivity.class);
             startActivity(end_session_intent );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.i("error", "error");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.i("ioerror", "ioerror");
         }
     }
 
@@ -118,7 +119,6 @@ public class PhotoActivity extends AppCompatActivity {
         if (!folder.exists()) {
             success = folder.mkdirs();
         }
-        Toast.makeText(this, folder.toString(), Toast.LENGTH_LONG).show();
         if (success) {
             return folder.toString();
         } else {
