@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.jvicentillo.digitalguestbook.EndSessionActivity;
+import com.example.jvicentillo.digitalguestbook.GreetingFormatActivity;
 import com.example.jvicentillo.digitalguestbook.R;
 
 import java.io.File;
@@ -98,6 +100,8 @@ public class PhotoActivity extends AppCompatActivity {
             FileOutputStream output = new FileOutputStream(directory + "/second.png");
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
             output.close();
+            Intent end_session_intent = new Intent(getApplicationContext(), EndSessionActivity.class);
+            startActivity(end_session_intent );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.i("error", "error");
@@ -121,5 +125,11 @@ public class PhotoActivity extends AppCompatActivity {
             Log.i("status", Environment.getExternalStorageDirectory().toString());
         }
         return folder.toString();
+    }
+
+    public void clicKBack(View view) {
+        Intent greeting_intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
+
+        startActivity(greeting_intent);
     }
 }
