@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".FormatViews.VideoActivity"></activity>
+        <activity android:name=".EndSessionActivity"></activity>
+        <activity android:name=".FormatViews.VideoActivity" />
         <activity android:name=".FormatViews.PhotoActivity" />
         <activity android:name=".GreetingFormatActivity" />
         <activity android:name=".MainActivity">
