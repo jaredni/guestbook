@@ -126,4 +126,10 @@ public class PhotoActivity extends AppCompatActivity {
         }
         return folder.toString();
     }
+
+    public void clicKBack(View view) {
+        Intent greeting_intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
+
+        startActivity(greeting_intent);
+    }
 }
