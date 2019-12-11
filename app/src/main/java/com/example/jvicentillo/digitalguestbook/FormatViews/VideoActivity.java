@@ -94,8 +94,7 @@ public class VideoActivity extends AppCompatActivity {
 
     public void clicKBack(View view) {
         File file = new File(getVideoUri().getPath());
-        boolean deleted = file.delete();
-        Log.i("deleted", Boolean.toString(deleted));
+        file.delete();
 
         Intent greeting_intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
 
