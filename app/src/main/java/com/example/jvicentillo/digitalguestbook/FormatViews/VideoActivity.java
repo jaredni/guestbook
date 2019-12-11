@@ -24,19 +24,34 @@ import java.io.File;
 
 public class VideoActivity extends AppCompatActivity {
     static final int REQUEST_VIDEO_CAPTURE = 1;
+    static final int REQUEST_NEW_FILE = 1;
+    static final int REQUEST_CURRENT_FILE = 2;
 
     public void getVideo() {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         Intent takePictureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getVideoUri());
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getVideoUri(REQUEST_NEW_FILE));
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE);
         }
     }
 
-    private Uri getVideoUri() {
-        File file = new File( getExternalFilesDir(null) + "/NewDirectory", "something.mp4");
+    private Uri getVideoUri(int requestCode) {
+        String directoryString = getExternalFilesDir(null) + "/NewDirectory";
+        File directoryFile = new File(directoryString);
+        int fileCount;
+        if (requestCode == 1) {
+            try {
+                fileCount = directoryFile.list().length;
+            } catch (NullPointerException e) {
+                Log.d("Error", "Directory file does not exist");
+                return null;
+            }
+        } else {
+            fileCount = directoryFile.list().length - 1;
+        }
+        File file = new File( getExternalFilesDir(null) + "/NewDirectory", fileCount + ".mp4");
 
         Uri imgUri = Uri.fromFile(file);
 
@@ -81,7 +96,7 @@ public class VideoActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             VideoView videoView= findViewById(R.id.videoGreeting);
             videoView.setMediaController(new MediaController(this));
-            videoView.setVideoURI(getVideoUri());
+            videoView.setVideoURI(getVideoUri(REQUEST_CURRENT_FILE));
             videoView.requestFocus();
             videoView.start();
         }
@@ -93,7 +108,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     public void clicKBack(View view) {
-        File file = new File(getVideoUri().getPath());
+        File file = new File(getVideoUri(REQUEST_CURRENT_FILE).getPath());
         file.delete();
 
         Intent greeting_intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
