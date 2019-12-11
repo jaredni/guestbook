@@ -19,28 +19,24 @@ import android.widget.VideoView;
 import com.example.jvicentillo.digitalguestbook.EndSessionActivity;
 import com.example.jvicentillo.digitalguestbook.GreetingFormatActivity;
 import com.example.jvicentillo.digitalguestbook.R;
+import com.example.jvicentillo.digitalguestbook.Utilities;
 
 import java.io.File;
 
 public class VideoActivity extends AppCompatActivity {
     static final int REQUEST_VIDEO_CAPTURE = 1;
+    static final int REQUEST_NEW_FILE = 1;
+    static final int REQUEST_CURRENT_FILE = 2;
+    Utilities util = new Utilities();
 
     public void getVideo() {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         Intent takePictureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getVideoUri());
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, util.getFileUri(getApplicationContext(), REQUEST_NEW_FILE, 0));
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE);
         }
-    }
-
-    private Uri getVideoUri() {
-        File file = new File( getExternalFilesDir(null) + "/NewDirectory", "something.mp4");
-
-        Uri imgUri = Uri.fromFile(file);
-
-        return imgUri;
     }
 
     @Override
@@ -81,7 +77,7 @@ public class VideoActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             VideoView videoView= findViewById(R.id.videoGreeting);
             videoView.setMediaController(new MediaController(this));
-            videoView.setVideoURI(getVideoUri());
+            videoView.setVideoURI(util.getFileUri(getApplicationContext(), REQUEST_CURRENT_FILE, 0));
             videoView.requestFocus();
             videoView.start();
         }
@@ -93,7 +89,7 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     public void clicKBack(View view) {
-        File file = new File(getVideoUri().getPath());
+        File file = new File(util.getFileUri(getApplicationContext(), REQUEST_CURRENT_FILE, 0).getPath());
         file.delete();
 
         Intent greeting_intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
