@@ -10,7 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/videobg" />
+        app:srcCompat="@drawable/videobgfinal" />
 
     <VideoView
         android:id="@+id/videoGreeting"
@@ -28,4 +28,35 @@
         android:layout_marginEnd="203dp"
         android:layout_marginRight="203dp"
         android:layout_marginBottom="158dp" />
+
+    <ImageView
+        android:id="@+id/saveButtonView2"
+        android:layout_width="160dp"
+        android:layout_height="56dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="96dp"
+        android:layout_marginRight="96dp"
+        android:layout_marginBottom="17dp"
+        android:onClick="saveVideo"
+        android:scaleX="-1"
+        app:srcCompat="@drawable/save" />
+
+    <ImageView
+        android:id="@+id/backButtonView2"
+        android:layout_width="50dp"
+        android:layout_height="39dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="134dp"
+        android:layout_marginLeft="134dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="662dp"
+        android:layout_marginRight="662dp"
+        android:layout_marginBottom="364dp"
+        android:onClick="clicKBack"
+        app:srcCompat="@drawable/back" />
+
 </RelativeLayout>

@@ -12,9 +12,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.example.jvicentillo.digitalguestbook.EndSessionActivity;
+import com.example.jvicentillo.digitalguestbook.GreetingFormatActivity;
 import com.example.jvicentillo.digitalguestbook.R;
 
 import java.io.File;
@@ -82,5 +85,20 @@ public class VideoActivity extends AppCompatActivity {
             videoView.requestFocus();
             videoView.start();
         }
+    }
+
+    public void saveVideo(View view) {
+        Intent end_session_intent = new Intent(getApplicationContext(), EndSessionActivity.class);
+        startActivity(end_session_intent );
+    }
+
+    public void clicKBack(View view) {
+        File file = new File(getVideoUri().getPath());
+        boolean deleted = file.delete();
+        Log.i("deleted", Boolean.toString(deleted));
+
+        Intent greeting_intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
+
+        startActivity(greeting_intent);
     }
 }
