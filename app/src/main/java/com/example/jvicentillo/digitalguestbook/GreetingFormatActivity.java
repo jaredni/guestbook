@@ -92,8 +92,8 @@ public class GreetingFormatActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        File lmao = new File(getExternalFilesDir(null), "/NewDirectory/something.mp4");
-        File picture = new File(getExternalFilesDir(null), "/NewDirectory/second.png");
+        File lmao = new File(getExternalFilesDir(null), "/NewDirectory/1.mp4");
+        File picture = new File(getExternalFilesDir(null), "/NewDirectory/0.png");
         File output = new File(getExternalFilesDir(null), "/NewDirectory/output.mp4");
         String filePath = lmao.getAbsolutePath();
         String[] command = new String[]{

@@ -14,20 +14,20 @@
 
     <VideoView
         android:id="@+id/videoGreeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="428dp"
+        android:layout_height="306dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="347dp"
-        android:layout_marginLeft="347dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="203dp"
-        android:layout_marginRight="203dp"
-        android:layout_marginBottom="158dp" />
+        android:layout_marginStart="273dp"
+        android:layout_marginLeft="273dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="259dp"
+        android:layout_marginRight="259dp"
+        android:layout_marginBottom="85dp" />
 
     <ImageView
         android:id="@+id/saveButtonView2"
@@ -53,9 +53,9 @@
         android:layout_marginStart="134dp"
         android:layout_marginLeft="134dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="662dp"
-        android:layout_marginRight="662dp"
-        android:layout_marginBottom="364dp"
+        android:layout_marginEnd="752dp"
+        android:layout_marginRight="752dp"
+        android:layout_marginBottom="407dp"
         android:onClick="clicKBack"
         app:srcCompat="@drawable/back" />
 
