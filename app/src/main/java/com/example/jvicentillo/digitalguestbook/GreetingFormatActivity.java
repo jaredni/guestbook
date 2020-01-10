@@ -29,7 +29,7 @@ public class GreetingFormatActivity extends AppCompatActivity {
 
     public void clickPhoto(View view) {
         Intent photo_intent = new Intent(getApplicationContext(), PhotoActivity.class);
-    
+
         startActivity(photo_intent);
     }
 
@@ -93,16 +93,30 @@ public class GreetingFormatActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         File lmao = new File(getExternalFilesDir(null), "/NewDirectory/something.mp4");
-        File picture = new File(getExternalFilesDir(null), "/NewDirectory/second.png");
+        File picture = new File(getExternalFilesDir(null), "/NewDirectory/kekistan.mp4");
         File output = new File(getExternalFilesDir(null), "/NewDirectory/output.mp4");
         String filePath = lmao.getAbsolutePath();
-        String[] command = new String[]{
+        /*String[] command = new String[]{
                 "-loop", "1", "-framerate", "24", "-t", "10", "-i", picture.getAbsolutePath(), "-i", filePath, "-f",
                 "lavfi", "-t", "0.1", "-i", "anullsrc=channel_layout=stereo:sample_rate=4410",
-                "-filter_complex", "[0]scale=432:432,setsar=1[im];[1]scale=432:432,setsar=1[vid];[im][vid]concat=n=2:v=1:a=0",
+                "-filter_complex", "[0]scale=432:432,setsar=1[0];[1]scale=432:432,setsar=1[1];[0][1]concat=n=2:v=1:a=0",
                 output.getAbsolutePath()
 
-        };
+        };*/
+
+        /*String[] command = new String[] {
+                "-loop", "1", "-i", picture.getAbsolutePath(), "-c:v", "libx264", "-t", "15", "-pix_fmt", "yuv420p", "-vf", "scale=320:240", output.getAbsolutePath()
+        };*/
+
+        /*String[] command = new String[] {
+            "-i", picture.getAbsolutePath(), "-i", filePath, "-filter_complex", "[v0][a0][v1][a1]concat=n=2:v=1:a=1[out]",
+                "map", "[out]", output.getAbsolutePath()
+        };*/
+
+        String[] command = new String[] {"-i", picture.getAbsolutePath(), "-i", filePath, "-f",
+                "lavfi", "-t", "0.1", "-i", "anullsrc=channel_layout=stereo:sample_rate=4410", "-filter_complex",
+                "[0:v]scale=1280x720,setsar=1[v0];[1:v]scale=1280x720,setsar=1[v1];[v0][2:a][v1][1:a]concat=n=2:v=1:a=1",
+                "-ab", "48000", "-ac", "2", "-ar", "22050", "-s", "480x640", "-vcodec", "libx264","-crf","27","-preset", "ultrafast", output.getAbsolutePath()};
         execFFmpegBinary(command);
     }
 }
