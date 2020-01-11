@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -21,6 +22,11 @@ import com.example.jvicentillo.digitalguestbook.EndSessionActivity;
 import com.example.jvicentillo.digitalguestbook.GreetingFormatActivity;
 import com.example.jvicentillo.digitalguestbook.R;
 import com.example.jvicentillo.digitalguestbook.Utilities;
+import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,8 +36,10 @@ import java.io.IOException;
 public class PhotoActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_NEW_FILE = 1;
+    static final int REQUEST_CURRENT_FILE = 2;
 
     Utilities util;
+    FFmpeg ffmpeg;
 
     public void getPhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -62,7 +70,7 @@ public class PhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
-
+        loadFFMpegBinary();
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
                 (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
             requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
@@ -103,6 +111,14 @@ public class PhotoActivity extends AppCompatActivity {
             FileOutputStream output = new FileOutputStream(util.getFileUri(getApplicationContext(), REQUEST_NEW_FILE, 1).getPath());
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
             output.close();
+            Uri video_output = util.getFileUri(getApplicationContext(), REQUEST_CURRENT_FILE, 0);
+            Uri image_output = util.getFileUri(getApplicationContext(), REQUEST_CURRENT_FILE, 1);
+            File video = new File(video_output.getPath());
+            File picture = new File(image_output.getPath());
+            String[] command = new String[] {
+                "-loop", "1", "-i", picture.getAbsolutePath(), "-c:v", "libx264", "-t", "15", "-pix_fmt", "yuv420p", "-vf", "scale=320:240", video.getAbsolutePath()
+            };
+            execFFmpegBinary(command, picture);
             Intent end_session_intent = new Intent(getApplicationContext(), EndSessionActivity.class);
             startActivity(end_session_intent );
         } catch (FileNotFoundException e) {
@@ -131,5 +147,58 @@ public class PhotoActivity extends AppCompatActivity {
         Intent greeting_intent = new Intent(getApplicationContext(), GreetingFormatActivity.class);
 
         startActivity(greeting_intent);
+    }
+
+    private void loadFFMpegBinary() {
+        try {
+            if (ffmpeg == null) {
+                ffmpeg = FFmpeg.getInstance(this);
+            }
+            ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
+                @Override
+                public void onFailure() {
+                }
+
+                @Override
+                public void onSuccess() {
+                    Log.d("loaded correctly", "ffmpeg : correct Loaded");
+                }
+            });
+        } catch (FFmpegNotSupportedException e) {
+            Log.d("not loaded", "not loaded again");
+        } catch (Exception e) {
+            Log.d("not loaded", "EXception no controlada : " + e);
+        }
+    }
+
+    private void execFFmpegBinary(final String[] command, final File picture) {
+        try {
+            // to execute "ffmpeg -version" command you just need to pass "-version"
+            ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
+
+                @Override
+                public void onStart() {}
+
+                @Override
+                public void onProgress(String message) {}
+
+                @Override
+                public void onFailure(String message) {
+                    Log.d("Error", message);
+                }
+
+                @Override
+                public void onSuccess(String message) {
+                    boolean deleted = picture.delete();
+                    Log.d("Success", message);
+                }
+
+                @Override
+                public void onFinish() {
+                }
+            });
+        } catch (FFmpegCommandAlreadyRunningException e) {
+            // Handle if FFmpeg is already running
+        }
     }
 }
