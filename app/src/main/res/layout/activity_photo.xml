@@ -49,7 +49,12 @@
             android:layout_marginEnd="161dp"
             android:layout_marginRight="161dp"
             android:layout_marginBottom="307dp" />
-
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/navigationButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <Button
             android:id="@+id/clearButton"
             android:layout_width="wrap_content"
@@ -93,7 +98,6 @@
             android:layout_marginBottom="364dp"
             android:onClick="clicKBack"
             app:srcCompat="@drawable/back" />
-
     </RelativeLayout>
 
 </RelativeLayout>
