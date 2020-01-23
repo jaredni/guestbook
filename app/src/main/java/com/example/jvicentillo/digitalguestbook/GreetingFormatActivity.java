@@ -99,12 +99,18 @@ public class GreetingFormatActivity extends AppCompatActivity {
     public void onClick(View view) {
         String directoryString = getExternalFilesDir(null) + "/NewDirectory";
         File directoryFile = new File(directoryString);
-        int fileCount = directoryFile.list().length - 1;
-        File lmao = new File(getExternalFilesDir(null), "/NewDirectory/1.mp4");
+        int fileCount = directoryFile.list().length;
+        String[] fileList = new String[fileCount];
+        for (int x = 0; x < fileCount; x++) {
+            File video = new File(getExternalFilesDir(null), "/NewDirectory/" + String.valueOf(x) + ".mp4");
+            fileList[x] = video.getAbsolutePath();
+            // Log.i("FFmpeg", fileList[x]);
+        }
+        /*File lmao = new File(getExternalFilesDir(null), "/NewDirectory/1.mp4");
         File picture = new File(getExternalFilesDir(null), "/NewDirectory/0.mp4");
+        String filePath = lmao.getAbsolutePath();*/
         File output = new File(getExternalFilesDir(null), "/NewDirectory/output.mp4");
-        String filePath = lmao.getAbsolutePath();
-        String list = generateList(new String[] {picture.getAbsolutePath(), filePath});
+        String list = generateList(fileList);
         String[] command = new String[] {
                 "-f",
                 "concat",
