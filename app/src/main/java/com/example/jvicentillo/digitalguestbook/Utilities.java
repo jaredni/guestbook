@@ -18,13 +18,13 @@ public final class Utilities {
         int fileCount;
         if (requestCode == 1) {
             try {
-                fileCount = directoryFile.list().length;
+                fileCount = directoryFile.list().length - 4;
             } catch (NullPointerException e) {
                 Log.d("Error", "Directory file does not exist");
                 return null;
             }
         } else {
-            fileCount = directoryFile.list().length - 1;
+            fileCount = directoryFile.list().length - 5;
         }
         String extensionFilename = ".mp4";
         if (greetingCode == 1) {

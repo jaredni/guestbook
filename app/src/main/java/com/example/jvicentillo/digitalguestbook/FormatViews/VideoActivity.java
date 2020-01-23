@@ -34,6 +34,7 @@ public class VideoActivity extends AppCompatActivity {
         StrictMode.setVmPolicy(builder.build());
         Intent takePictureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, util.getFileUri(getApplicationContext(), REQUEST_NEW_FILE, 0));
+        takePictureIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,10);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_VIDEO_CAPTURE);
         }

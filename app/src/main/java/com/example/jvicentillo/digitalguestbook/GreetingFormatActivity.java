@@ -101,11 +101,15 @@ public class GreetingFormatActivity extends AppCompatActivity {
         File directoryFile = new File(directoryString);
         int fileCount = directoryFile.list().length;
         String[] fileList = new String[fileCount];
-        for (int x = 0; x < fileCount; x++) {
-            File video = new File(getExternalFilesDir(null), "/NewDirectory/" + String.valueOf(x) + ".mp4");
+        fileList[0] = new File(getExternalFilesDir(null), "/NewDirectory/first.mp4").getAbsolutePath();
+        fileList[1] = new File(getExternalFilesDir(null), "/NewDirectory/opening.mp4").getAbsolutePath();
+        for (int x = 2; x < fileCount-2; x++) {
+            File video = new File(getExternalFilesDir(null), "/NewDirectory/" + String.valueOf(x-2) + ".mp4");
             fileList[x] = video.getAbsolutePath();
             // Log.i("FFmpeg", fileList[x]);
         }
+        fileList[fileCount-2] = new File(getExternalFilesDir(null), "/NewDirectory/ending.mp4").getAbsolutePath();
+        // fileList[fileCount-1] = new File(getExternalFilesDir(null), "/NewDirectory/companypage.mp4").getAbsolutePath();
         /*File lmao = new File(getExternalFilesDir(null), "/NewDirectory/1.mp4");
         File picture = new File(getExternalFilesDir(null), "/NewDirectory/0.mp4");
         String filePath = lmao.getAbsolutePath();*/

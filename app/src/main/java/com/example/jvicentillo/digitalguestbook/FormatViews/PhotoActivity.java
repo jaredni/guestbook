@@ -115,6 +115,7 @@ public class PhotoActivity extends AppCompatActivity {
             Uri image_output = util.getFileUri(getApplicationContext(), REQUEST_CURRENT_FILE, 1);
             File video = new File(video_output.getPath());
             File picture = new File(image_output.getPath());
+            // File picture = new File(getExternalFilesDir(null), "/NewDirectory/ending.jpg");
             String[] command = new String[] {
                 "-loop", "1", "-framerate", "60", "-t", "5", "-i", picture.getAbsolutePath(),
                 "-f", "lavfi", "-t", "5", "-i", "aevalsrc=0", "-vf", "settb=1/60000, scale=1920:1080",
