@@ -10,39 +10,41 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/formatbg" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/themealbum3" />
 
     <ImageView
         android:id="@+id/photoButton"
-        android:layout_width="263dp"
-        android:layout_height="485dp"
+        android:layout_width="202dp"
+        android:layout_height="123dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="562dp"
-        android:layout_marginLeft="562dp"
-        android:layout_marginTop="141dp"
-        android:layout_marginBottom="174dp"
+        android:layout_marginStart="512dp"
+        android:layout_marginLeft="512dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="308dp"
         android:onClick="clickPhoto"
         app:srcCompat="@drawable/camera" />
 
     <ImageView
         android:id="@+id/videoButton"
-        android:layout_width="236dp"
-        android:layout_height="245dp"
+        android:layout_width="150dp"
+        android:layout_height="126dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="232dp"
-        android:layout_marginLeft="232dp"
-        android:layout_marginTop="134dp"
-        android:layout_marginEnd="492dp"
-        android:layout_marginRight="492dp"
-        android:layout_marginBottom="161dp"
+        android:layout_marginStart="274dp"
+        android:layout_marginLeft="274dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="536dp"
+        android:layout_marginRight="536dp"
+        android:layout_marginBottom="310dp"
         android:onClick="clickVideo"
         app:srcCompat="@drawable/videocam" />
 
@@ -53,9 +55,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="391dp"
-        android:layout_marginRight="391dp"
-        android:layout_marginBottom="93dp"
+        android:layout_marginEnd="202dp"
+        android:layout_marginRight="202dp"
+        android:layout_marginBottom="25dp"
         android:onClick="onClick"
-        android:text="Button" />
+        android:text="Render Video" />
 </RelativeLayout>

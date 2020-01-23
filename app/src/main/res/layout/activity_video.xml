@@ -10,24 +10,28 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/videobgfinal" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        app:srcCompat="@drawable/theme2video" />
 
     <VideoView
         android:id="@+id/videoGreeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="487dp"
+        android:layout_height="355dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="347dp"
-        android:layout_marginLeft="347dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="203dp"
-        android:layout_marginRight="203dp"
-        android:layout_marginBottom="158dp" />
+        android:layout_marginStart="245dp"
+        android:layout_marginLeft="245dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="228dp"
+        android:layout_marginRight="228dp"
+        android:layout_marginBottom="53dp" />
 
     <ImageView
         android:id="@+id/saveButtonView2"
@@ -36,9 +40,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="96dp"
-        android:layout_marginRight="96dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginRight="79dp"
+        android:layout_marginBottom="0dp"
         android:onClick="saveVideo"
         android:scaleX="-1"
         app:srcCompat="@drawable/save" />
@@ -53,9 +57,9 @@
         android:layout_marginStart="134dp"
         android:layout_marginLeft="134dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="662dp"
-        android:layout_marginRight="662dp"
-        android:layout_marginBottom="364dp"
+        android:layout_marginEnd="772dp"
+        android:layout_marginRight="772dp"
+        android:layout_marginBottom="423dp"
         android:onClick="clicKBack"
         app:srcCompat="@drawable/back" />
 

@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
-            app:srcCompat="@drawable/photopage" />
+            app:srcCompat="@drawable/theme2pic" />
 
         <ImageView
             android:id="@+id/realPhoto2"
@@ -41,8 +41,8 @@
 
         <ImageView
             android:id="@+id/realPhoto"
-            android:layout_width="75dp"
-            android:layout_height="89dp"
+            android:layout_width="189dp"
+            android:layout_height="133dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
@@ -50,11 +50,15 @@
             android:layout_marginRight="161dp"
             android:layout_marginBottom="307dp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/navigationButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/clearButton"
             android:layout_width="wrap_content"
@@ -63,9 +67,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="408dp"
-            android:layout_marginEnd="226dp"
-            android:layout_marginRight="226dp"
-            android:layout_marginBottom="21dp"
+            android:layout_marginEnd="228dp"
+            android:layout_marginRight="228dp"
+            android:layout_marginBottom="26dp"
             android:onClick="clearDrawing"
             android:text="Clear" />
 
@@ -93,9 +97,9 @@
             android:layout_marginStart="134dp"
             android:layout_marginLeft="134dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="662dp"
-            android:layout_marginRight="662dp"
-            android:layout_marginBottom="364dp"
+            android:layout_marginEnd="760dp"
+            android:layout_marginRight="760dp"
+            android:layout_marginBottom="416dp"
             android:onClick="clicKBack"
             app:srcCompat="@drawable/back" />
     </RelativeLayout>
