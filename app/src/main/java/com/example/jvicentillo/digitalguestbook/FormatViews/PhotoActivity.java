@@ -116,7 +116,10 @@ public class PhotoActivity extends AppCompatActivity {
             File video = new File(video_output.getPath());
             File picture = new File(image_output.getPath());
             String[] command = new String[] {
-                "-loop", "1", "-i", picture.getAbsolutePath(), "-c:v", "libx264", "-t", "15", "-pix_fmt", "yuv420p", "-vf", "scale=320:240", video.getAbsolutePath()
+                "-loop", "1", "-framerate", "60", "-t", "5", "-i", picture.getAbsolutePath(),
+                "-f", "lavfi", "-t", "5", "-i", "aevalsrc=0", "-vf", "settb=1/60000, scale=1920:1080",
+                "-video_track_timescale", "60000", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset",
+                "ultrafast", video.getAbsolutePath()
             };
             execFFmpegBinary(command, picture);
             Intent end_session_intent = new Intent(getApplicationContext(), EndSessionActivity.class);

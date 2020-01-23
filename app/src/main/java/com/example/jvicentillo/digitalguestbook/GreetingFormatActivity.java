@@ -14,7 +14,12 @@ import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 public class GreetingFormatActivity extends AppCompatActivity {
 
@@ -92,31 +97,51 @@ public class GreetingFormatActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        File lmao = new File(getExternalFilesDir(null), "/NewDirectory/something.mp4");
-        File picture = new File(getExternalFilesDir(null), "/NewDirectory/kekistan.mp4");
+        String directoryString = getExternalFilesDir(null) + "/NewDirectory";
+        File directoryFile = new File(directoryString);
+        int fileCount = directoryFile.list().length - 1;
+        File lmao = new File(getExternalFilesDir(null), "/NewDirectory/1.mp4");
+        File picture = new File(getExternalFilesDir(null), "/NewDirectory/0.mp4");
         File output = new File(getExternalFilesDir(null), "/NewDirectory/output.mp4");
         String filePath = lmao.getAbsolutePath();
-        /*String[] command = new String[]{
-                "-loop", "1", "-framerate", "24", "-t", "10", "-i", picture.getAbsolutePath(), "-i", filePath, "-f",
-                "lavfi", "-t", "0.1", "-i", "anullsrc=channel_layout=stereo:sample_rate=4410",
-                "-filter_complex", "[0]scale=432:432,setsar=1[0];[1]scale=432:432,setsar=1[1];[0][1]concat=n=2:v=1:a=0",
+        String list = generateList(new String[] {picture.getAbsolutePath(), filePath});
+        String[] command = new String[] {
+                "-f",
+                "concat",
+                "-safe",
+                "0",
+                "-i",
+                list,
+                "-c",
+                "copy",
                 output.getAbsolutePath()
-
-        };*/
-
-        /*String[] command = new String[] {
-                "-loop", "1", "-i", picture.getAbsolutePath(), "-c:v", "libx264", "-t", "15", "-pix_fmt", "yuv420p", "-vf", "scale=320:240", output.getAbsolutePath()
-        };*/
-
-        /*String[] command = new String[] {
-            "-i", picture.getAbsolutePath(), "-i", filePath, "-filter_complex", "[v0][a0][v1][a1]concat=n=2:v=1:a=1[out]",
-                "map", "[out]", output.getAbsolutePath()
-        };*/
-
-        String[] command = new String[] {"-i", picture.getAbsolutePath(), "-i", filePath, "-f",
-                "lavfi", "-t", "0.1", "-i", "anullsrc=channel_layout=stereo:sample_rate=4410", "-filter_complex",
-                "[0:v]scale=1280x720,setsar=1[v0];[1:v]scale=1280x720,setsar=1[v1];[v0][2:a][v1][1:a]concat=n=2:v=1:a=1",
-                "-ab", "48000", "-ac", "2", "-ar", "22050", "-s", "480x640", "-vcodec", "libx264","-crf","27","-preset", "ultrafast", output.getAbsolutePath()};
+        };
         execFFmpegBinary(command);
+    }
+
+    private static String generateList(String[] inputs) {
+        File list;
+        Writer writer = null;
+        try {
+            list = File.createTempFile("ffmpeg-list", ".txt");
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(list)));
+            for (String input: inputs) {
+                writer.write("file '" + input + "'\n");
+                Log.d("Writing to File", "Writing to list file: file '" + input + "'");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "/";
+        } finally {
+            try {
+                if (writer != null)
+                    writer.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        Log.d("Wrote list file to", "Wrote list file to " + list.getAbsolutePath());
+        return list.getAbsolutePath();
     }
 }
